@@ -1,9 +1,9 @@
 {
     "pages": [
       {
-        "name": "Dashboard Analytics",
-        "icon": "mdi-home-outline",
-        "url": "index.html"
+        "name": "Categorias",
+        "icon": "mdi mdi-shape-outline",
+        "url": "Categorias"
       },
       {
         "name": "Dashboard CRM",

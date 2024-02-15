@@ -20,4 +20,6 @@ Route::controller(Categories::class)->group(function ($route) {
     Route::get('/Categorias', 'index');
     Route::post('/insertCategory', 'new');
     Route::get('/getCategories', 'show');
+    Route::post('/updateCategory', 'update');
+    Route::post('/updateStatus', 'updateStatus');
 });

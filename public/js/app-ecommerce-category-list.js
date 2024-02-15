@@ -95,10 +95,12 @@ commentEditor &&
                             targets: 3,
                             responsivePriority: 3,
                             render: function (t, e, n, s) {
+                                const checkedAttribute =
+                                    t === 1 ? "checked" : "";
                                 return (
-                                    '<div class="text-sm-end">' +
-                                    n.status +
-                                    "</div>"
+                                    '<label class="switch switch-lg"><input type="checkbox" class="switch-input btn-status" ' +
+                                    checkedAttribute +
+                                    '><span class="switch-toggle-slider"><span class="switch-on"></span><span class="switch-off"></span></span></label>'
                                 );
                             },
                         },
@@ -392,20 +394,65 @@ commentEditor &&
                         "form-select-sm"
                     );
             }, 300);
-       t.on("click", ".btn-edit", function () {
-            // Obtén la fila que contiene el botón de edición
-            var row = $(this).closest("tr");
-
-            // Obtén los datos de la fila actual
-            var rowData = $(this).closest("table").DataTable().row(row).data();
-            console.log(rowData);
-            $('#offcanvasEcommerceCategoryList').offcanvas('show');
-
+        $(".add-new").on("click", function () {
+            $(".offcanvas-title")
+                .attr("data-i18n", "Add Category")
+                .text("Agregar Categoria");
+            $(".data-submit").text("AGREGAR");
         });
-    }),
-    (function () {
-        const t = document.getElementById("eCommerceCategoryListForm");
-        const fv = FormValidation.formValidation(t, {
+        t.on("click", ".btn-status", function () {
+            let row = $(this).closest("tr");
+            let rowData = $(this).closest("table").DataTable().row(row).data(),
+                isChecked = $(this).prop("checked");
+
+            let id = rowData.id,
+                status = isChecked ? "1" : "0";
+
+            let csrfToken = $('meta[name="csrf-token"]').attr("content");
+            let formData = {
+                id: id,
+                status: status,
+                _token: csrfToken, // Agregar el token CSRF aquí
+            };
+
+            $.ajax({
+                url: "updateStatus",
+                method: "POST",
+                data: formData,
+                dataType: "json",
+            })
+                .done(function (response) {
+                    if (response.success) {
+                        console.log("La categoría se actualizó correctamente.");
+                    } else {
+                        console.error(
+                            "Hubo un error al actualizar la categoría:",
+                            response.error
+                        );
+                    }
+                })
+                .fail(function (xhr, status, error) {
+                    console.error("Hubo un error en la solicitud AJAX:", error);
+                });
+        });
+        t.on("click", ".btn-edit", function () {
+            let row = $(this).closest("tr");
+            let rowData = $(this).closest("table").DataTable().row(row).data();
+
+            $("#offcanvasEcommerceCategoryListLabel")
+                .attr("data-i18n", "Edit Category")
+                .text("Editar Categoria");
+            $("#ecommerce-category-title").val(rowData.name);
+            $("#categoryDescription .ql-editor").html(rowData.description);
+
+            $("#offcanvasEcommerceCategoryList").offcanvas("show");
+            $("#categoryId").val(rowData.id);
+            $(".data-submit").text("EDITAR");
+        });
+
+        const f = document.getElementById("eCommerceCategoryListForm");
+
+        const fv = FormValidation.formValidation(f, {
             fields: {
                 categoryTitle: {
                     validators: {
@@ -426,11 +473,15 @@ commentEditor &&
             },
         });
 
-        // Agrega un evento de escucha para cuando se complete con éxito la validación
         fv.on("core.form.valid", function () {
-            console.log("La validación se ha completado con éxito.");
-            // Puedes agregar aquí cualquier acción que desees realizar después de que la validación sea exitosa
-            sendDataServe();
+            const method = $("#offcanvasEcommerceCategoryListLabel").attr(
+                "data-i18n"
+            );
+            if (method == "Edit Category") {
+                updateDataServe();
+            } else {
+                sendDataServe();
+            }
         });
 
         function sendDataServe() {
@@ -439,7 +490,7 @@ commentEditor &&
             // Cambiar el estilo del botón y obtener la función de restablecimiento
             const resetBtn = setLoadingState(submitBtn);
 
-            const formData = new FormData(t);
+            const formData = new FormData(f);
             const descriptionContent = $(
                 "#categoryDescription .ql-editor"
             ).html();
@@ -462,19 +513,68 @@ commentEditor &&
                     return response.json();
                 })
                 .then((data) => {
-                    console.log("Datos enviados correctamente:", data);
-                    t.reset();
+                    f.reset();
                     document
                         .getElementById("ecommerce-category-title")
                         .classList.remove("is-valid");
-
-                    clearEditorContent();
+                    t.DataTable().ajax.reload();
+                    Toast.fire({
+                        icon: "success",
+                        title: "Categoria agregado exitosamente",
+                    });
+            $("#offcanvasEcommerceCategoryList").offcanvas("hide");
+            clearEditorContent();
                 })
                 .catch((error) => {
                     console.error("Error:", error.message);
                 })
                 .finally(() => {
-                    // Restaurar el contenido original del botón después de completar la solicitud
+                    resetBtn();
+                });
+        }
+
+        function updateDataServe() {
+            const submitBtn = document.querySelector(".data-submit");
+            const resetBtn = setLoadingState(submitBtn);
+            const formData = new FormData(f);
+            const descriptionContent = $(
+                "#categoryDescription .ql-editor"
+            ).html();
+            formData.append("description", descriptionContent);
+            formData.append(
+                "_token",
+                $('meta[name="csrf-token"]').attr("content")
+            );
+
+            fetch("updateCategory", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(
+                            "Hubo un problema al procesar el formulario."
+                        );
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+            $("#offcanvasEcommerceCategoryList").offcanvas("hide");
+            f.reset();
+                    t.DataTable().ajax.reload();
+                    Toast.fire({
+                        icon: "success",
+                        title: "Categoria editado correctamente",
+                    });
+                    document
+                        .getElementById("ecommerce-category-title")
+                        .classList.remove("is-valid");
+                    clearEditorContent();
+        })
+                .catch((error) => {
+                    console.error("Error:", error.message);
+                })
+                .finally(() => {
                     resetBtn();
                 });
         }
@@ -508,4 +608,15 @@ commentEditor &&
                 quill.setText("");
             }
         }
-    })();
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
+        });
+    });

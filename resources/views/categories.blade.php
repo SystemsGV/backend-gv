@@ -18,7 +18,7 @@
                                 <th></th>
                                 <th></th>
                                 <th>Categorias</th>
-                                <th class="text-nowrap text-sm-end">Estado &nbsp;</th>
+                                <th class="text-nowrap">Estado &nbsp;</th>
                                 <th class="text-lg-center">Acciones</th>
                             </tr>
                         </thead>
@@ -30,7 +30,7 @@
                 aria-labelledby="offcanvasEcommerceCategoryListLabel">
                 <!-- Offcanvas Header -->
                 <div class="offcanvas-header py-4">
-                    <h5 id="offcanvasEcommerceCategoryListLabel" class="offcanvas-title" data-i18n="Add Category"></h5>
+                    <h5 id="offcanvasEcommerceCategoryListLabel" class="offcanvas-title" data-i18n=""></h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
@@ -39,7 +39,7 @@
                     <form class="pt-0" id="eCommerceCategoryListForm" enctype="multipart/form-data"
                         onsubmit="return false">
                         <!-- Title -->
-
+                        <input type="hidden" id="categoryId" name="categoryId">
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="ecommerce-category-title"
                                 placeholder="Enter category title" name="categoryTitle" aria-label="category title">

@@ -45,6 +45,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/%40form-validation/umd/styles/index.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/libs/sweetalert2/sweetalert2.css') }}">
 
     @yield('styles')
 
@@ -1706,6 +1707,7 @@
     <script src="{{ asset('vendor/libs/%40form-validation/umd/plugin-auto-focus/index.min.js') }}"></script>
     <script src="{{ asset('vendor/libs/quill/katex.js') }}"></script>
     <script src="{{ asset('vendor/libs/quill/quill.js') }}"></script>
+    <script src="{{ asset('vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
 
     <!-- Main JS -->
     <script src="{{ asset('js/main.js') }}"></script>
