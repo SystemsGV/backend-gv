@@ -15,21 +15,8 @@ class Categories extends Controller
 
     public function show()
     {
-        $categories = Category::all();
-
-        $data = [];
-        foreach ($categories as $category) {
-            $data[] = [
-                'id' => $category->id_category,
-                'name' => $category->name_category,
-                'description' => $category->descr_category,
-                'image' => $category->img_category,
-                'status' => $category->status_category,
-                // Puedes añadir más atributos según tus necesidades
-            ];
-        }
-
-        return response()->json(['data' => $data]);
+        $categoriesData = Category::getAllCategories();
+        return response()->json(['data' => $categoriesData]);
     }
 
     public function new(Request $request)
@@ -74,36 +61,35 @@ class Categories extends Controller
     public function update(Request $request)
     {
         try {
-            // Obtener el ID de la categoría que se está actualizando
             $categoryId = $request->input('categoryId');
-        
+
             // Buscar la categoría existente en la base de datos
             $category = Category::findOrFail($categoryId);
-        
+
             // Obtener otros datos del formulario
             $nameCategory = $request->input('categoryTitle');
             $descriptionCategory = $request->input('description');
-        
+
             // Verificar si se ha cargado una nueva imagen
             if ($request->hasFile('categoryImage')) {
                 // Obtener el nombre del archivo de imagen
                 $file = $request->file('categoryImage');
                 $uniqueFileName = uniqid() . '.' . $file->getClientOriginalExtension();
-        
+
                 // Guardar el archivo de imagen en el sistema de archivos
                 $file->storeAs('public/category', $uniqueFileName);
-        
+
                 // Actualizar la imagen de la categoría
                 $category->img_category = $uniqueFileName;
             }
-        
+
             // Actualizar otros datos de la categoría
             $category->name_category = $nameCategory;
             $category->descr_category = $descriptionCategory;
-        
+
             // Guardar los cambios en la base de datos
             $category->save();
-        
+
             // Retornar una respuesta JSON con los datos actualizados
             return response()->json([
                 'message' => 'Category updated successfully',
@@ -118,7 +104,6 @@ class Categories extends Controller
                 'error' => 'Error en el servidor: ' . $e->getMessage()
             ], 500);
         }
-        
     }
 
     public function updateStatus(Request $request)
@@ -135,5 +120,11 @@ class Categories extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => 'No se pudo encontrar la categoría.'], 404);
         }
+    }
+
+    public function selectCategory()
+    {
+        return Category::getSelectCategories(); // Obtener todas las categorías
+
     }
 }
