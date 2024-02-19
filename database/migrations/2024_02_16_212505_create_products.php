@@ -30,7 +30,8 @@ return new class extends Migration
             $table->unsignedBigInteger('offer_id');
             $table->foreign('offer_id')->references('id_offer')->on('offers')->onDelete('cascade');
             $table->timestamps();
-            $table->integer('status');
+            $table->integer('igv');
+            $table->integer('status_product');
         });
     }
 

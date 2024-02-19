@@ -174,7 +174,7 @@ document.getElementById("layout-menu") &&
                             fallbackLng: "es",
                             backend: {
                                 loadPath:
-                                    assetsPath + "json/locales/{{lng}}.json",
+                                    assetsPath + "json/locales/es.json",
                             },
                             returnObjects: !0,
                         })

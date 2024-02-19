@@ -1,16 +1,163 @@
-"use strict";!function(){var e=document.querySelector(".comment-editor"),e=(e&&new Quill(e,{modules:{toolbar:".comment-toolbar"},placeholder:"Product Description",theme:"snow"}),document.querySelector("#dropzone-basic")),e=(e&&new Dropzone(e,{previewTemplate:`<div class="dz-preview dz-file-preview">
-<div class="dz-details">
-  <div class="dz-thumbnail">
-    <img data-dz-thumbnail>
-    <span class="dz-nopreview">No preview</span>
-    <div class="dz-success-mark"></div>
-    <div class="dz-error-mark"></div>
-    <div class="dz-error-message"><span data-dz-errormessage></span></div>
-    <div class="progress">
-      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
-    </div>
-  </div>
-  <div class="dz-filename" data-dz-name></div>
-  <div class="dz-size" data-dz-size></div>
-</div>
-</div>`,parallelUploads:1,maxFilesize:5,acceptedFiles:".jpg,.jpeg,.png,.gif",addRemoveLinks:!0,maxFiles:1}),document.querySelector("#ecommerce-product-tags")),e=(new Tagify(e),new Date),r=document.querySelector(".product-date");r&&r.flatpickr({monthSelectorType:"static",defaultDate:e})}(),$(function(){var s,o,e=$(".select2"),e=(e.length&&e.each(function(){var e=$(this);select2Focus(e),e.wrap('<div class="position-relative"></div>').select2({dropdownParent:e.parent(),placeholder:e.data("placeholder")})}),$(".form-repeater"));e.length&&(s=2,o=1,e.on("submit",function(e){e.preventDefault()}),e.repeater({show:function(){var t=$(this).find(".form-control, .form-select"),a=$(this).find(".form-label"),e=(t.each(function(e){var r="form-repeater-"+s+"-"+o;$(t[e]).attr("id",r),$(a[e]).attr("for",r),o++}),s++,$(this).slideDown(),$(".select2-container").remove(),$(".select2.form-select").select2({placeholder:"Placeholder text"}),$(".select2-container").css("width","100%"),$(this));select2Focus(e),$(".form-repeater:first .form-select").select2({dropdownParent:$(this).parent(),placeholder:"Placeholder text"}),$(".position-relative .select2").each(function(){$(this).select2({dropdownParent:$(this).closest(".position-relative")})})}}))});
+"use strict";
+!(function () {
+    var e = document.querySelector(".short-editor"),
+        e =
+            (e &&
+                new Quill(e, {
+                    modules: { toolbar: ".comment-toolbar" },
+                    placeholder: "Product Description",
+                    table: true,
+                    theme: "snow",
+                }),
+            document.querySelector("#dropzone-basic")),
+        r = document.querySelector(".product-date");
+    r && r.flatpickr({ monthSelectorType: "static", defaultDate: e });
+    var n = document.querySelector(".general-editor"),
+        n =
+            n &&
+            new Quill(n, {
+                modules: { toolbar: ".comment-toolbar2" },
+                placeholder: "Product Description",
+                table: true,
+                theme: "snow",
+            });
+    let h = document.getElementById("uploadedAvatar");
+    const l = document.querySelector(".account-file-input"),
+        c = document.querySelector(".account-image-reset");
+    if (h) {
+        const j = h.src;
+        (l.onchange = () => {
+            l.files[0] && (h.src = window.URL.createObjectURL(l.files[0]));
+        }),
+            (c.onclick = () => {
+                (l.value = ""), (h.src = j);
+            });
+    }
+    let f = document.getElementById("uploadedAvatar2");
+    const s = document.querySelector(".account-file-input2"),
+        d = document.querySelector(".account-image-reset2");
+    if (f) {
+        const r = f.src;
+        (s.onchange = () => {
+            s.files[0] && (f.src = window.URL.createObjectURL(s.files[0]));
+        }),
+            (d.onclick = () => {
+                (s.value = ""), (f.src = r);
+            });
+    }
+})(),
+    $(function () {
+        const csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+        var s,
+            o,
+            e = $(".select2"),
+            e =
+                (e.length &&
+                    e.each(function () {
+                        var e = $(this);
+                        select2Focus(e),
+                            e
+                                .wrap('<div class="position-relative"></div>')
+                                .select2({
+                                    dropdownParent: e.parent(),
+                                    placeholder: e.data("placeholder"),
+                                });
+                    }),
+                $(".form-repeater"));
+        e.length &&
+            ((s = 2),
+            (o = 1),
+            e.on("submit", function (e) {
+                e.preventDefault();
+            }),
+            e.repeater({
+                show: function () {
+                    var t = $(this).find(".form-control, .form-select"),
+                        a = $(this).find(".form-label"),
+                        e =
+                            (t.each(function (e) {
+                                var r = "form-repeater-" + s + "-" + o;
+                                $(t[e]).attr("id", r),
+                                    $(a[e]).attr("for", r),
+                                    o++;
+                            }),
+                            s++,
+                            $(this).slideDown(),
+                            $(".select2-container").remove(),
+                            $(".select2.form-select").select2({
+                                placeholder: "Placeholder text",
+                            }),
+                            $(".select2-container").css("width", "100%"),
+                            $(this));
+                    select2Focus(e),
+                        $(".form-repeater:first .form-select").select2({
+                            dropdownParent: $(this).parent(),
+                            placeholder: "Placeholder text",
+                        }),
+                        $(".position-relative .select2").each(function () {
+                            $(this).select2({
+                                dropdownParent:
+                                    $(this).closest(".position-relative"),
+                            });
+                        });
+                },
+            }));
+        $("#category-org").change(function () {
+            var categoryId = $(this).val();
+            if (categoryId) {
+                $.ajax({
+                    url: "post-subcategory",
+                    data: { categoryId: categoryId, _token: csrfToken },
+                    type: "POST",
+                    dataType: "json",
+                }).done((data) => {
+                    $("#subcategory-org").empty();
+                    $("#subcategory-org").append(
+                        '<option value="">Seleccionar Subcategoria</option>'
+                    );
+                    $.each(data, function (key, value) {
+                        $("#subcategory-org").append(
+                            '<option value="' +
+                                value.id_subcategory +
+                                '">' +
+                                value.name_subcategory +
+                                "</option>"
+                        );
+                    });
+                });
+            } else {
+                $("#subcategory-org").empty();
+                $("#subcategory-org").append(
+                    '<option value="">Seleccionar Subcategoria</option>'
+                );
+            }
+        });
+        $("#offer").change(function () {
+            let selectedPercentage = $(this)
+                .find("option:selected")
+                .data("percentage");
+            if (selectedPercentage !== undefined) {
+                // Actualizar el contenido del elemento con ID "percentage" con el valor del porcentaje
+                $("#percentage").html(
+                    '<div class="input-group input-group-merge">' +
+                        '<div class="form-floating form-floating-outline">' +
+                        '<input type="text" value="' +
+                        selectedPercentage +
+                        '" class="form-control" disabled placeholder="' +
+                        selectedPercentage +
+                        '"' +
+                        'aria-label="Amount (to the nearest dollar)">' +
+                        "<label>Porcentaje</label>" +
+                        "</div>" +
+                        '<span class="input-group-text">%</span>' +
+                        "</div>"
+                );
+            } else {
+                // Manejar el caso donde no se encuentra ningún data-percentage
+                console.log(
+                    "No se encontró data-percentage para la opción seleccionada"
+                );
+            }
+        });
+    });

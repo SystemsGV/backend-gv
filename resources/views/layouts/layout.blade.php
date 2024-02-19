@@ -22,7 +22,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="../../../css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap" rel="stylesheet">
+    <link href="{{ asset('css/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap') }}" rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('vendor/fonts/materialdesignicons.css') }}">
@@ -47,6 +47,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/libs/%40form-validation/umd/styles/index.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/sweetalert2/sweetalert2.css') }}">
 
+
     @yield('styles')
 
     <!-- Page CSS -->
@@ -55,6 +56,7 @@
     <!-- Helpers -->
     <script src="{{ asset('vendor/js/helpers.js') }}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <script src="{{ asset('vendor/js/template-customizer.js') }}"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('js/config.js') }}"></script>
 
@@ -175,25 +177,35 @@
                             </li>
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div data-i18n="Products">Productos</div>
+                                    <div data-i18n="Product">Producto</div>
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-product-list.html" class="menu-link">
+                                        <a href="{{ route('Productos') }}" class="menu-link">
                                             <div data-i18n="Product List">Lista Productos</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-product-add.html" class="menu-link">
+                                        <a href="{{ route('Agregar Producto') }}" class="menu-link">
                                             <div data-i18n="Add Product">Add Product</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="{{ route('Categorias')}}" class="menu-link">
+                                        <a href="{{ route('Categorias') }}" class="menu-link">
                                             <div data-i18n="Category List">Category List</div>
                                         </a>
                                     </li>
+                                    <li class="menu-item">
+                                        <a href="{{ route('SubCategorias') }}" class="menu-link">
+                                            <div data-i18n="SubCategory List">Subcategory List</div>
+                                        </a>
+                                    </li>
                                 </ul>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{ route('Ofertas') }}" class="menu-link">
+                                    <div data-i18n="Offers">Offers</div>
+                                </a>
                             </li>
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -1637,9 +1649,7 @@
                                 class="footer-container d-flex align-items-center justify-content-between py-3 flex-md-row flex-column">
                                 <div class="mb-2 mb-md-0">
                                     ©
-                                    <script>
-                                        document.write(new Date().getFullYear())
-                                    </script>, made with <span class="text-danger"><i
+                                    <i
                                             class="tf-icons mdi mdi-heart"></i></span> by <a
                                         href="https://pixinvent.com" target="_blank"
                                         class="footer-link fw-medium">Pixinvent</a>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Categories;
 use App\Http\Controllers\SubCategories;
 use App\Http\Controllers\Offers;
+use App\Http\Controllers\Products;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,12 @@ use App\Http\Controllers\Offers;
 |
 */
 
+Route::controller(Products::class)->group(function ($route) {
+
+    Route::get('/Productos', 'index')->name('Productos');
+    Route::get('/Agregar_Producto', 'add_product')->name('Agregar Producto');
+    Route::post('/post-subcategory', 'getOrganize');
+});
 
 Route::controller(Categories::class)->group(function ($route) {
 
@@ -38,7 +45,7 @@ Route::controller(SubCategories::class)->group(function ($route) {
 
 Route::controller(Offers::class)->group(function ($route) {
 
-    Route::get('/Ofertas', 'index')->name('ofertas');
+    Route::get('/Ofertas', 'index')->name('Ofertas');
     Route::get('/getOffers', 'show');
     Route::post('/insertOffer', 'new');
     Route::post('/statusOffer', 'updateStatus');

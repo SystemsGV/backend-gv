@@ -487,7 +487,7 @@ commentEditor &&
             const method = $("#offcanvasEcommerceCategoryListLabel").attr(
                 "data-i18n"
             );
-            if (method == "Edit Category") {
+            if (method == "Edit SubCategory") {
                 updateDataServe();
             } else {
                 sendDataServe();
