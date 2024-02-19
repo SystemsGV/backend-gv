@@ -3,7 +3,7 @@ const commentEditor = document.querySelector(".comment-editor");
 commentEditor &&
     new Quill(commentEditor, {
         modules: { toolbar: ".comment-toolbar" },
-        placeholder: "Ingrese la descripción de la subcategoría...",
+        placeholder: "Ingrese la descripción de la oferta...",
         theme: "snow",
     }),
     $(function () {
@@ -30,12 +30,12 @@ commentEditor &&
             }),
             t.length &&
                 (t.DataTable({
-                    ajax: "getSubCategories",
+                    ajax: "getOffers",
                     columns: [
                         { data: "" },
                         { data: "id" },
                         { data: "name" },
-                        { data: "category" },
+                        { data: "percentage" },
                         { data: "status" },
                         { data: "" },
                     ],
@@ -55,7 +55,7 @@ commentEditor &&
                             responsivePriority: 2,
                             render: function (t, e, n, s) {
                                 var o = n.name,
-                                    a = n.description,
+                                    a = n.slug,
                                     r = n.image,
                                     i = n.id;
                                 return (
@@ -63,7 +63,7 @@ commentEditor &&
                                     '<div class="avatar-wrapper me-3 rounded-2 bg-label-secondary user-name">' +
                                     '<div class="avatar">' +
                                     (r
-                                        ? '<img src="/storage/subcategory/' +
+                                        ? '<img src="/storage/offer/' +
                                           r +
                                           '" alt="Product-' +
                                           i +
@@ -94,9 +94,9 @@ commentEditor &&
                         },
                         {
                             targets: 3,
-                            responsivePriority: 3,
+                            responsivePriority: 4,
                             render: function (t, e, n, s) {
-                                return t;
+                                return t + "%";
                             },
                         },
                         {
@@ -128,7 +128,7 @@ commentEditor &&
                     language: {
                         sLengthMenu: "_MENU_",
                         search: "",
-                        searchPlaceholder: "Buscar SubCategoria",
+                        searchPlaceholder: "Buscar Oferta",
                     },
                     buttons: [
                         {
@@ -405,8 +405,8 @@ commentEditor &&
         $(".add-new").on("click", function () {
             clearForm();
             $(".offcanvas-title")
-                .attr("data-i18n", "Add SubCategory")
-                .text("Agregar SubCategoria");
+                .attr("data-i18n", "Add Offer")
+                .text("Agregar Oferta");
             $(".data-submit").text("AGREGAR");
         });
         t.on("click", ".btn-status", function () {
@@ -415,9 +415,9 @@ commentEditor &&
                 isChecked = $(this).prop("checked");
 
             let id = rowData.id,
-                status = isChecked ? "1" : "0";
+                status = isChecked ? "1" : "0",
+                csrfToken = $('meta[name="csrf-token"]').attr("content");
 
-            let csrfToken = $('meta[name="csrf-token"]').attr("content");
             let formData = {
                 id: id,
                 status: status,
@@ -425,14 +425,14 @@ commentEditor &&
             };
 
             $.ajax({
-                url: "updateStatusSub",
+                url: "statusOffer",
                 method: "POST",
                 data: formData,
                 dataType: "json",
             })
                 .done(function (response) {
                     if (response.success) {
-                        console.log("La categoría se actualizó correctamente.");
+                        console.log("La oferta se actualizó correctamente.");
                     } else {
                         console.error(
                             "Hubo un error al actualizar la categoría:",
@@ -449,10 +449,10 @@ commentEditor &&
             let rowData = $(this).closest("table").DataTable().row(row).data();
 
             $("#offcanvasEcommerceCategoryListLabel")
-                .attr("data-i18n", "Edit SubCategory")
-                .text("Editar SubCategoria");
-            $(".select2").val(rowData.category_id).trigger("change");
+                .attr("data-i18n", "Edit Offer")
+                .text("Editar Oferta");
             $("#ecommerce-category-title").val(rowData.name);
+            $("#ecommerce-category-percentage").val(rowData.percentage);
             $("#categoryDescription .ql-editor").html(rowData.description);
 
             $("#offcanvasEcommerceCategoryList").offcanvas("show");
@@ -466,7 +466,18 @@ commentEditor &&
             fields: {
                 categoryTitle: {
                     validators: {
-                        notEmpty: { message: "Please enter category title" },
+                        notEmpty: {
+                            message:
+                                "Por favor ingrese el título de la categoría",
+                        },
+                    },
+                },
+                categoryPercentage: {
+                    validators: {
+                        notEmpty: {
+                            message:
+                                "Por favor ingrese el porcentaje de categoría",
+                        },
                     },
                 },
             },
@@ -487,7 +498,7 @@ commentEditor &&
             const method = $("#offcanvasEcommerceCategoryListLabel").attr(
                 "data-i18n"
             );
-            if (method == "Edit Category") {
+            if (method == "Edit Offer") {
                 updateDataServe();
             } else {
                 sendDataServe();
@@ -496,6 +507,8 @@ commentEditor &&
 
         function sendDataServe() {
             const submitBtn = document.querySelector(".data-submit");
+
+            // Cambiar el estilo del botón y obtener la función de restablecimiento
             const resetBtn = setLoadingState(submitBtn);
 
             const formData = new FormData(f);
@@ -508,7 +521,7 @@ commentEditor &&
                 $('meta[name="csrf-token"]').attr("content")
             );
 
-            fetch("insertSubCategory", {
+            fetch("insertOffer", {
                 method: "POST",
                 body: formData,
             })
@@ -525,7 +538,7 @@ commentEditor &&
                     t.DataTable().ajax.reload();
                     Toast.fire({
                         icon: "success",
-                        title: "Categoria agregado exitosamente",
+                        title: data.message,
                     });
                     $("#offcanvasEcommerceCategoryList").offcanvas("hide");
                 })
@@ -550,7 +563,7 @@ commentEditor &&
                 $('meta[name="csrf-token"]').attr("content")
             );
 
-            fetch("updateSubCategory", {
+            fetch("updateOffer", {
                 method: "POST",
                 body: formData,
             })
@@ -567,7 +580,7 @@ commentEditor &&
                     t.DataTable().ajax.reload();
                     Toast.fire({
                         icon: "success",
-                        title: "SubCategoria editado correctamente",
+                        title: data.message,
                     });
                     $("#offcanvasEcommerceCategoryList").offcanvas("hide");
                 })
@@ -610,12 +623,15 @@ commentEditor &&
         }
         function clearForm() {
             f.reset();
-            $(".select2").val(0).trigger("change");
             document
                 .getElementById("ecommerce-category-title")
                 .classList.remove("is-valid");
+            document
+                .getElementById("ecommerce-category-percentage")
+                .classList.remove("is-valid");
             clearEditorContent();
         }
+
         const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -627,35 +643,4 @@ commentEditor &&
                 toast.onmouseleave = Swal.resumeTimer;
             },
         });
-
-        function selectCategory() {
-            const selectElement = document.getElementById(
-                "ecommerce-subcategory-parent-category"
-            );
-
-            fetch("getAllCategories", {
-                method: "GET",
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(
-                            "Hubo un problema al procesar el formulario."
-                        );
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    data.forEach((category) => {
-                        const option = document.createElement("option");
-                        option.value = category.id_category;
-                        option.textContent = category.name_category;
-                        selectElement.appendChild(option);
-                    });
-                })
-                .catch((error) => {
-                    console.error("Error:", error.message);
-                });
-        }
-
-        selectCategory();
     });
