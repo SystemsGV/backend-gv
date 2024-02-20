@@ -21,6 +21,7 @@ Route::controller(Products::class)->group(function ($route) {
 
     Route::get('/Productos', 'index')->name('Productos');
     Route::get('/Agregar_Producto', 'add_product')->name('Agregar Producto');
+    Route::post('/saveProduct', 'new');
     Route::post('/post-subcategory', 'getOrganize');
 });
 

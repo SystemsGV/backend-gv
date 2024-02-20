@@ -2,13 +2,13 @@
     "pages": [
       {
         "name": "Categorias",
-        "icon": "mdi mdi-shape-outline",
+        "icon": "mdi-shape-outline",
         "url": "Categorias"
       },
       {
-        "name": "Dashboard CRM",
-        "icon": "mdi-chart-donut",
-        "url": "dashboards-crm.html"
+        "name": "Productos",
+        "icon": "mdi-cart-outline",
+        "url": "Productos"
       },
       {
         "name": "Layout Collapsed menu",
