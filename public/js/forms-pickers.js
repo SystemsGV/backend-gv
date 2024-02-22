@@ -1,40 +1,5 @@
 "use strict";
-!(function () {
-    var e = document.querySelector("#flatpickr-date"),
-        t = document.querySelector("#flatpickr-time"),
-        a = document.querySelector("#flatpickr-datetime"),
-        i = document.querySelector("#flatpickr-multi"),
-        r = document.querySelector("#flatpickr-range"),
-        n = document.querySelector("#flatpickr-inline"),
-        o = document.querySelector("#flatpickr-human-friendly"),
-        l = document.querySelector("#flatpickr-disabled-range");
-    e && e.flatpickr({ monthSelectorType: "static" }),
-        t && t.flatpickr({ enableTime: !0, noCalendar: !0 }),
-        a && a.flatpickr({ enableTime: !0, dateFormat: "Y-m-d H:i" }),
-        i &&
-            i.flatpickr({
-                weekNumbers: !0,
-                enableTime: !0,
-                mode: "multiple",
-                minDate: "today",
-            }),
-        null != typeof r && r.flatpickr({ mode: "range" }),
-        n &&
-            n.flatpickr({
-                inline: !0,
-                allowInput: !1,
-                monthSelectorType: "static",
-            }),
-        o &&
-            o.flatpickr({
-                altInput: !0,
-                altFormat: "F j, Y",
-                dateFormat: "Y-m-d",
-            }),
-        l &&
-            ((e = new Date(Date.now() - 1728e5)),
-            (t = new Date(Date.now() + 1728e5)));
-})(),
+
     $(function () {
         var e = $("#bs-datepicker-basic"),
             t = $("#bs-datepicker-format"),
