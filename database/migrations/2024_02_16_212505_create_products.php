@@ -31,6 +31,7 @@ return new class extends Migration
             $table->foreign('offer_id')->references('id_offer')->on('offers')->onDelete('cascade');
             $table->timestamps();
             $table->integer('igv');
+            $table->integer('isMultiPrice_product');
             $table->integer('status_product');
             $table->string('seo_title')->nullable();
             $table->string('seo_meta_description')->nullable();

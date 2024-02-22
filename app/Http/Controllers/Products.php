@@ -42,6 +42,7 @@ class Products extends Controller
         $product->product_desc = $request->input('short');
         $product->product_features = $request->input('general');
         $product->price_product = $request->input('productPrice');
+        $product->isMultiPrice_product = $request->input('isMultiPrice');
 
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');

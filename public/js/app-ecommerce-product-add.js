@@ -263,7 +263,8 @@
 
             const formData = new FormData(f),
                 shortDescription = $("#short-editor .ql-editor").html(),
-                generalDescription = $("#general-editor .ql-editor").html();
+                generalDescription = $("#general-editor .ql-editor").html(),
+                switchInput = document.querySelector(".switch-input");
 
             const tags = document.getElementById(
                 "ecommerce-product-tags"
@@ -274,6 +275,7 @@
                 const seoTags = dataTags.map((obj) => obj.value).join(",");
                 formData.append("seoTags", seoTags);
             }
+            formData.append("isMultiPrice", switchInput.checked ? 1 : 0);
 
             formData.append("short", shortDescription);
             formData.append("general", generalDescription);

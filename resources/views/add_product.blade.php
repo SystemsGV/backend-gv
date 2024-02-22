@@ -22,7 +22,7 @@
                         <h4 class="mb-1 mt-3">Añadir un nuevo producto</h4>
                     </div>
                     <div class="d-flex align-content-center flex-wrap gap-3">
-                        <a href="{{route('Productos')}}" class="btn btn-outline-secondary">Descartar</a>
+                        <a href="{{ route('Productos') }}" class="btn btn-outline-secondary">Descartar</a>
                         <button type="submit" class="btn btn-outline-primary" name="accion" value="borrador">Guardar
                             Borrado</button>
                         <button type="submit" class="btn btn-primary" name="accion" value="publicar">Publicar
@@ -208,6 +208,20 @@
                                 </div>
                                 <div class="form-floating form-floating-outline" id="amount_dsc">
 
+                                </div>
+                                <!-- Instock switch -->
+                                <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                                    <p class="card-title mb-0">Multi Precios</p>
+                                    <div class="w-25 d-flex justify-content-end">
+                                        <label class="switch switch-primary  me-4 pe-2">
+                                            <input type="checkbox" class="switch-input" checked="">
+                                            <span class="switch-toggle-slider">
+                                                <span class="switch-on">
+                                                    <span class="switch-off"></span>
+                                                </span>
+                                            </span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

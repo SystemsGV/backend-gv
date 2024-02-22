@@ -45,6 +45,9 @@
     <link rel="stylesheet" href="{{ asset('vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/%40form-validation/umd/styles/index.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/libs/jquery-timepicker/jquery-timepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/sweetalert2/sweetalert2.css') }}">
 
 
@@ -203,26 +206,14 @@
                                 </ul>
                             </li>
                             <li class="menu-item">
-                                <a href="{{ route('Ofertas') }}" class="menu-link">
-                                    <div data-i18n="Offers">Offers</div>
+                                <a href="{{route('Precios')}}" class="menu-link">
+                                    <div data-i18n="Price List">Lista de Precios</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div data-i18n="Order">Order</div>
+                                <a href="{{ route('Ofertas') }}" class="menu-link">
+                                    <div data-i18n="Offers">Offers</div>
                                 </a>
-                                <ul class="menu-sub">
-                                    <li class="menu-item">
-                                        <a href="app-ecommerce-order-list.html" class="menu-link">
-                                            <div data-i18n="Order List">Order List</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="app-ecommerce-order-.html" class="menu-link">
-                                            <div data-i18n="Order Details">Order Details</div>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -713,150 +704,7 @@
                     <li class="menu-header fw-medium mt-4">
                         <span class="menu-header-text" data-i18n="Components">Components</span>
                     </li>
-                    <!-- Cards -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons mdi mdi-credit-card-outline"></i>
-                            <div data-i18n="Cards">Cards</div>
-                            <div class="badge bg-primary rounded-pill ms-auto">6</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="cards-basic.html" class="menu-link">
-                                    <div data-i18n="Basic">Basic</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="cards-advance.html" class="menu-link">
-                                    <div data-i18n="Advance">Advance</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="cards-statistics.html" class="menu-link">
-                                    <div data-i18n="Statistics">Statistics</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="cards-analytics.html" class="menu-link">
-                                    <div data-i18n="Analytics">Analytics</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="cards-gamifications.html" class="menu-link">
-                                    <div data-i18n="Gamifications">Gamifications</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="cards-actions.html" class="menu-link">
-                                    <div data-i18n="Actions">Actions</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- User interface -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons mdi mdi-archive-outline"></i>
-                            <div data-i18n="User interface">User interface</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="ui-accordion.html" class="menu-link">
-                                    <div data-i18n="Accordion">Accordion</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-alerts.html" class="menu-link">
-                                    <div data-i18n="Alerts">Alerts</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-badges.html" class="menu-link">
-                                    <div data-i18n="Badges">Badges</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-buttons.html" class="menu-link">
-                                    <div data-i18n="Buttons">Buttons</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-carousel.html" class="menu-link">
-                                    <div data-i18n="Carousel">Carousel</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-collapse.html" class="menu-link">
-                                    <div data-i18n="Collapse">Collapse</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-dropdowns.html" class="menu-link">
-                                    <div data-i18n="Dropdowns">Dropdowns</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-footer.html" class="menu-link">
-                                    <div data-i18n="Footer">Footer</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-list-groups.html" class="menu-link">
-                                    <div data-i18n="List Groups">List groups</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-modals.html" class="menu-link">
-                                    <div data-i18n="Modals">Modals</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-navbar.html" class="menu-link">
-                                    <div data-i18n="Navbar">Navbar</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-offcanvas.html" class="menu-link">
-                                    <div data-i18n="Offcanvas">Offcanvas</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-pagination-breadcrumbs.html" class="menu-link">
-                                    <div data-i18n="Pagination & Breadcrumbs">Pagination &amp; Breadcrumbs</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-progress.html" class="menu-link">
-                                    <div data-i18n="Progress">Progress</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-spinners.html" class="menu-link">
-                                    <div data-i18n="Spinners">Spinners</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-tabs-pills.html" class="menu-link">
-                                    <div data-i18n="Tabs & Pills">Tabs &amp; Pills</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-toasts.html" class="menu-link">
-                                    <div data-i18n="Toasts">Toasts</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-tooltips-popovers.html" class="menu-link">
-                                    <div data-i18n="Tooltips & Popovers">Tooltips &amp; Popovers</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-typography.html" class="menu-link">
-                                    <div data-i18n="Typography">Typography</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+
 
                     <!-- Extended components -->
                     <li class="menu-item">
@@ -948,146 +796,6 @@
                         </a>
                     </li>
 
-                    <!-- Forms & Tables -->
-                    <li class="menu-header fw-medium mt-4">
-                        <span class="menu-header-text" data-i18n="Forms & Tables">Forms &amp; Tables</span>
-                    </li>
-                    <!-- Forms -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons mdi mdi-form-select"></i>
-                            <div data-i18n="Form Elements">Form Elements</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="forms-basic-inputs.html" class="menu-link">
-                                    <div data-i18n="Basic Inputs">Basic Inputs</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-input-groups.html" class="menu-link">
-                                    <div data-i18n="Input groups">Input groups</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-custom-options.html" class="menu-link">
-                                    <div data-i18n="Custom Options">Custom Options</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-editors.html" class="menu-link">
-                                    <div data-i18n="Editors">Editors</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-file-upload.html" class="menu-link">
-                                    <div data-i18n="File Upload">File Upload</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-pickers.html" class="menu-link">
-                                    <div data-i18n="Pickers">Pickers</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-selects.html" class="menu-link">
-                                    <div data-i18n="Select & Tags">Select &amp; Tags</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-sliders.html" class="menu-link">
-                                    <div data-i18n="Sliders">Sliders</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-switches.html" class="menu-link">
-                                    <div data-i18n="Switches">Switches</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-extras.html" class="menu-link">
-                                    <div data-i18n="Extras">Extras</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons mdi mdi-cube-outline"></i>
-                            <div data-i18n="Form Layouts">Form Layouts</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="form-layouts-vertical.html" class="menu-link">
-                                    <div data-i18n="Vertical Form">Vertical Form</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="form-layouts-horizontal.html" class="menu-link">
-                                    <div data-i18n="Horizontal Form">Horizontal Form</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="form-layouts-sticky.html" class="menu-link">
-                                    <div data-i18n="Sticky Actions">Sticky Actions</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons mdi mdi-dots-horizontal"></i>
-                            <div data-i18n="Form Wizard">Form Wizard</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="form-wizard-numbered.html" class="menu-link">
-                                    <div data-i18n="Numbered">Numbered</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="form-wizard-icons.html" class="menu-link">
-                                    <div data-i18n="Icons">Icons</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="form-validation.html" class="menu-link">
-                            <i class="menu-icon tf-icons mdi mdi-checkbox-marked-circle-outline"></i>
-                            <div data-i18n="Form Validation">Form Validation</div>
-                        </a>
-                    </li>
-                    <!-- Tables -->
-                    <li class="menu-item">
-                        <a href="tables-basic.html" class="menu-link">
-                            <i class="menu-icon tf-icons mdi mdi-table"></i>
-                            <div data-i18n="Tables">Tables</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons mdi mdi-grid"></i>
-                            <div data-i18n="Datatables">Datatables</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="tables-datatables-basic.html" class="menu-link">
-                                    <div data-i18n="Basic">Basic</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="tables-datatables-advanced.html" class="menu-link">
-                                    <div data-i18n="Advanced">Advanced</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="tables-datatables-extensions.html" class="menu-link">
-                                    <div data-i18n="Extensions">Extensions</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
 
                     <!-- Charts & Maps -->
                     <li class="menu-header fw-medium mt-4">
@@ -1154,7 +862,7 @@
                             <div class="nav-item navbar-search-wrapper mb-0">
                                 <a class="nav-item nav-link search-toggler fw-normal px-0" href="javascript:void(0);">
                                     <i class="mdi mdi-magnify mdi-24px scaleX-n1-rtl"></i>
-                                    <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
+                                    <span class="d-none d-md-inline-block text-muted">Buscar (Ctrl +a lt + K)</span>
                                 </a>
                             </div>
                         </div>

@@ -31,13 +31,11 @@ $(function () {
             ajax: assetsPath + "json/ecommerce-product-list.json",
             columns: [
                 { data: "id" },
-                { data: "id" },
                 { data: "product_name" },
                 { data: "category" },
                 { data: "stock" },
                 { data: "sku" },
                 { data: "price" },
-                { data: "quantity" },
                 { data: "status" },
                 { data: "" },
             ],
@@ -54,63 +52,13 @@ $(function () {
                 },
                 {
                     targets: 1,
-                    orderable: !1,
-                    checkboxes: {
-                        selectAllRender:
-                            '<input type="checkbox" class="form-check-input">',
+                    responsivePriority: 1,
+                    render: function (t, e, s, n) {
+                        return t;
                     },
-                    render: function () {
-                        return '<input type="checkbox" class="dt-checkboxes form-check-input" >';
-                    },
-                    searchable: !1,
                 },
                 {
                     targets: 2,
-                    responsivePriority: 1,
-                    render: function (t, e, s, n) {
-                        var a = s.product_name,
-                            i = s.id,
-                            o = s.product_brand,
-                            c = s.image;
-                        return (
-                            '<div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper me-3"><div class="avatar rounded-2 bg-label-secondary">' +
-                            (c
-                                ? '<img src="' +
-                                  assetsPath +
-                                  "img/ecommerce-images/" +
-                                  c +
-                                  '" alt="Product-' +
-                                  i +
-                                  '" class="rounded-2">'
-                                : '<span class="avatar-initial rounded-2 bg-label-' +
-                                  [
-                                      "success",
-                                      "danger",
-                                      "warning",
-                                      "info",
-                                      "dark",
-                                      "primary",
-                                      "secondary",
-                                  ][Math.floor(6 * Math.random())] +
-                                  '">' +
-                                  (c = (
-                                      ((c =
-                                          (a = s.product_brand).match(
-                                              /\b\w/g
-                                          ) || []).shift() || "") +
-                                      (c.pop() || "")
-                                  ).toUpperCase()) +
-                                  "</span>") +
-                            '</div></div><div class="d-flex flex-column"><span class="text-nowrap text-heading fw-medium">' +
-                            a +
-                            '</span><small class="text-truncate d-none d-sm-block">' +
-                            o +
-                            "</small></div></div>"
-                        );
-                    },
-                },
-                {
-                    targets: 3,
                     responsivePriority: 5,
                     render: function (t, e, s, n) {
                         s = i[s.category].title;
@@ -133,7 +81,7 @@ $(function () {
                     },
                 },
                 {
-                    targets: 4,
+                    targets: 3,
                     orderable: !1,
                     responsivePriority: 3,
                     render: function (t, e, s, n) {
@@ -153,26 +101,20 @@ $(function () {
                     },
                 },
                 {
-                    targets: 5,
+                    targets: 4,
                     render: function (t, e, s, n) {
                         return "<span>" + s.sku + "</span>";
                     },
                 },
                 {
-                    targets: 6,
+                    targets: 5,
                     render: function (t, e, s, n) {
                         return "<span>" + s.price + "</span>";
                     },
                 },
+
                 {
-                    targets: 7,
-                    responsivePriority: 4,
-                    render: function (t, e, s, n) {
-                        return "<span>" + s.qty + "</span>";
-                    },
-                },
-                {
-                    targets: -2,
+                    targets: 6,
                     render: function (t, e, s, n) {
                         s = s.status;
                         return (
@@ -186,7 +128,7 @@ $(function () {
                 },
                 {
                     targets: -1,
-                    title: "Actions",
+                    title: "Acciones",
                     searchable: !1,
                     orderable: !1,
                     render: function (t, e, s, n) {
@@ -390,7 +332,7 @@ $(function () {
                     className:
                         "add-new btn btn-primary ms-n1 waves-effect waves-light",
                     action: function () {
-                        window.location.href = "Agregar_Producto";
+                        window.location.href = "Agregar_Precio";
                     },
                 },
             ],
