@@ -80,4 +80,13 @@ class Products extends Controller
 
         return response()->json($data);
     }
+
+    public function getProductsByCategory(Request $request)
+    {
+        $products = Product::where('category_id', $request->input('categoryId'))
+            ->where('status_product', 1)
+            ->where('isMultiPrice_product', 1)->get();
+
+        return response()->json($products);
+    }
 }

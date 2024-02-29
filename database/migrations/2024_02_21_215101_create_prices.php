@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('prices', function (Blueprint $table) {
             $table->id('id_price');
             $table->unsignedBigInteger('product_id');
-            $table->enum('day_of_week', ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom']);
+            $table->text('title_price');
+            $table->integer('type_price');
+            $table->text('day_of_week')->nullable();
+            $table->text('price_by_dates')->nullable();
             $table->date('start_time');
             $table->date('end_time');
             $table->decimal('price', 10, 2);

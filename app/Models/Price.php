@@ -11,7 +11,7 @@ class Price extends Model
 
     protected $table = 'prices';
     protected $primaryKey = 'id_price';
-    protected $fillable = ['product_id ', 'day_of_week', 'start_time', 'end_time', 'price', 'shift'];
+    protected $fillable = ['product_id ', 'title_price', 'day_of_week', 'start_time', 'end_time', 'price', 'shift', 'type_price', 'price_by_dates'];
 
 
     public function product()
@@ -37,7 +37,7 @@ class Price extends Model
                 'shift' => $price->shift,
             ];
         }
-        
+
         return $data;
     }
 }
