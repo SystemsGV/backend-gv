@@ -592,18 +592,14 @@ commentEditor &&
                 });
         }
 
-        // Función para cambiar el estilo del botón durante la carga y deshabilitarlo
         function setLoadingState(btnElement) {
-            // Guardar el estado original del botón
             const originalContent = btnElement.innerHTML;
             const originalDisabled = btnElement.disabled;
 
-            // Cambiar el contenido del botón a un spinner y "Loading..."
             btnElement.innerHTML =
                 '<span class="spinner-border me-1" role="status" aria-hidden="true"></span>Loading...';
             btnElement.disabled = true;
 
-            // Devolver la función para restaurar el contenido original del botón y habilitarlo nuevamente
             return function resetBtn() {
                 btnElement.innerHTML = originalContent;
                 btnElement.disabled = originalDisabled;

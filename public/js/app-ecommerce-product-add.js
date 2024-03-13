@@ -104,6 +104,16 @@
                 },
             }));
         $("#category-org").change(function () {
+            $.blockUI({
+                message:
+                    '<div class="d-flex justify-content-center"><p class="mb-0">Please wait...</p> <div class="sk-wave m-0"><div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div></div> </div>',
+                css: {
+                    backgroundColor: "transparent",
+                    color: "#fff",
+                    border: "0",
+                },
+                overlayCSS: { opacity: 0.5 },
+            });
             var categoryId = $(this).val();
             if (categoryId) {
                 $.ajax({
@@ -125,6 +135,7 @@
                                 "</option>"
                         );
                     });
+                    $.blockUI();
                 });
             } else {
                 $("#subcategory-org").empty();
