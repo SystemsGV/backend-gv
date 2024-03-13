@@ -370,9 +370,13 @@ document.getElementById("layout-menu") &&
                     o.length && (o.toggleClass("d-none"), s.focus());
                 }),
                 $(document).on("keydown", function (e) {
-                    var t = e.ctrlKey,
-                        e = 191 === e.which;
-                    t && e && o.length && (o.toggleClass("d-none"), s.focus());
+                    var ctrlPressed = e.ctrlKey,
+                    altPressed = e.altKey,
+                    kPressed = 75 === e.which; // Código para la tecla "K"
+                if (ctrlPressed && altPressed && kPressed && o.length) {
+                    o.toggleClass("d-none");
+                    s.focus();
+                }
                 }),
                 setTimeout(function () {
                     var e = $(".twitter-typeahead");

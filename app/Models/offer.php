@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class offer extends Model
+class Offer extends Model
 {
     use HasFactory;
 
@@ -35,6 +35,6 @@ class offer extends Model
 
     public static function getSelectOffers()
     {
-        return offer::all();
+        return Offer::all();
     }
 }

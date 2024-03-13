@@ -5,6 +5,7 @@ use App\Http\Controllers\Categories;
 use App\Http\Controllers\SubCategories;
 use App\Http\Controllers\Offers;
 use App\Http\Controllers\Products;
+use App\Http\Controllers\Prices;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,9 @@ Route::controller(Products::class)->group(function ($route) {
 
     Route::get('/Productos', 'index')->name('Productos');
     Route::get('/Agregar_Producto', 'add_product')->name('Agregar Producto');
+    Route::post('/saveProduct', 'new');
     Route::post('/post-subcategory', 'getOrganize');
+    Route::post('/getProducts', 'getProductsByCategory');
 });
 
 Route::controller(Categories::class)->group(function ($route) {
@@ -50,4 +53,12 @@ Route::controller(Offers::class)->group(function ($route) {
     Route::post('/insertOffer', 'new');
     Route::post('/statusOffer', 'updateStatus');
     Route::post('/updateOffer', 'update');
+});
+
+Route::controller(Prices::class)->group(function ($route) {
+
+    Route::get('/Precios', 'index')->name('Precios');
+    Route::get('/Agregar_Precio', 'add_price')->name('Agregar precio');
+    Route::post('/savePrice', 'new');
+    Route::get('/show-prices', 'show');
 });
