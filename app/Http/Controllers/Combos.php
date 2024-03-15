@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Product;
 use App\Models\Combo;
+use App\Models\Combo_Products;
 
 class Combos extends Controller
 {
@@ -32,7 +33,7 @@ class Combos extends Controller
         $combo->isMultiPrice_combo = $request->input('isMultiPrice');
         $combo->combo_init_date = Carbon::createFromFormat('Y-m-d', $request->input('initDate'));
         $combo->combo_finish_date = Carbon::createFromFormat('Y-m-d', $request->input('finishDate'));
-        
+
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');
             $uniqueFileName = uniqid() . '.' . $file->getClientOriginalExtension();
@@ -50,6 +51,20 @@ class Combos extends Controller
 
         $combo->code_combo = $codeCombo;
         $combo->save();
+
+
+        $comboId = $combo->id_combo;
+
+        $tableData = json_decode($request->input('tableData'), true);
+
+        foreach ($tableData as $rowData) {
+            $comboProduct = new Combo_Products();
+            $comboProduct->combo_id = $comboId;
+            $comboProduct->product_id = $rowData['id_product'];
+            $comboProduct->quantity = $rowData['quantity'];
+            $comboProduct->price_cp = $rowData['price'];
+            $comboProduct->save();
+        }
 
         $data['status'] = true;
         $data['message'] = 'Producto agregado exitosamente';

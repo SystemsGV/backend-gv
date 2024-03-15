@@ -17,7 +17,30 @@ document.addEventListener("DOMContentLoaded", function (e) {
         }, 200),
         (fp = FormValidation.formValidation(t, {
             fields: {
-                /*Here validation*/
+                quantity: {
+                    validators: {
+                        notEmpty: {
+                            message: "Por favor ingresa la cantidad",
+                        },
+                    },
+                },
+                priceProduct: {
+                    validators: {
+                        notEmpty: {
+                            message: "Por favor precio del producto",
+                        },
+                    },
+                },
+                product_c: {
+                    validators: {
+                        callback: {
+                            message: "Por favor selecciona un Producto",
+                            callback: function (input) {
+                                return input.value != 0;
+                            },
+                        },
+                    },
+                },
             },
             plugins: {
                 trigger: new FormValidation.plugins.Trigger(),
@@ -130,11 +153,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
                             },
                             {
                                 targets: -1,
-                                title: "Actions",
+                                title: "Acciones",
                                 orderable: !1,
                                 searchable: !1,
                                 render: function (e, t, a, s) {
-                                    return '<div class="d-inline-block"><a href="javascript:;" class="btn btn-sm btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a><ul class="dropdown-menu dropdown-menu-end m-0"><li><a href="javascript:;" class="dropdown-item">Details</a></li><li><a href="javascript:;" class="dropdown-item">Archive</a></li><div class="dropdown-divider"></div><li><a href="javascript:;" class="dropdown-item text-danger delete-record">Delete</a></li></ul></div><a href="javascript:;" class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit"><i class="mdi mdi-pencil-outline"></i></a>';
+                                    return '<a href="javascript:;" class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit &nbsp; "><i class="mdi mdi-pencil-outline"></i></a> &nbsp;  <a href="javascript:;" class="btn btn-sm btn-text-danger rounded-pill btn-icon delete-record"><i class="mdi mdi-trash-can-outline"></i></a> ';
                                 },
                             },
                         ],
@@ -205,8 +228,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     .draw(),
                 d++,
                 offCanvasEl.hide());
-
-            console.log(l.rows().data().toArray());
         }),
             $(".datatables-basic tbody").on(
                 "click",
@@ -324,6 +345,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 generalDescription = $("#general-editor .ql-editor").html(),
                 switchInput = document.querySelector(".switch-input");
 
+                var tableData = l.rows().data().toArray();
+
+                var mappedData = tableData.map(function(row) {
+                    return {
+                        'id_product': row.id,
+                        'quantity': row.quantity,
+                        'price': parseFloat(row.price.replace('S/. ', ''))
+                    };
+                });
+
             const tags = document.getElementById(
                 "ecommerce-product-tags"
             ).value;
@@ -338,10 +369,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
             formData.append("short", shortDescription);
             formData.append("general", generalDescription);
             formData.append("accion", accion);
+            formData.append("tableData", JSON.stringify(mappedData));
             formData.append(
                 "_token",
                 $('meta[name="csrf-token"]').attr("content")
             );
+            console.log(JSON.stringify(mappedData));
             fetch("saveCombo", {
                 method: "POST",
                 body: formData,
@@ -362,7 +395,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
                         window.location.href = "Productos";
                     }, 3000);
                     $.unblockUI();
-
                 })
                 .catch((error) => {
                     console.error("Error:", error);

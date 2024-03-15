@@ -235,7 +235,7 @@
                         <div class="form-floating form-floating-outline">
                             <select id="product_c" name="product_c" class="select2 form-select dt-full-name"
                                 data-placeholder="Seleccionar Producto">
-                                <option value="0" disabled>Selecionar Producto</option>
+                                <option value="0" selected disabled>Selecionar Producto</option>
                                 @foreach ($products as $item)
                                     <option value="{{ $item->id_product }}">{{ $item->product_title }}
                                     </option>
@@ -250,8 +250,8 @@
                         <span id="basicPost2" class="input-group-text"><i
                                 class='mdi mdi-numeric-9-plus-box-multiple-outline'></i></span>
                         <div class="form-floating form-floating-outline">
-                            <input type="text" id="basicEmail" name="basicEmail" class="form-control dt-post"
-                                placeholder="Web Developer" aria-label="Web Developer" aria-describedby="basicPost2">
+                            <input type="text" id="basicEmail" name="quantity" class="form-control dt-post"
+                                placeholder="Ingresar Cantidad" aria-describedby="basicPost2">
                             <label for="basicPost">Cantidad</label>
                         </div>
                     </div>
@@ -260,8 +260,8 @@
                     <div class="input-group input-group-merge">
                         <span id="basicSalary2" class="input-group-text"><i class='mdi mdi-currency-usd'></i></span>
                         <div class="form-floating form-floating-outline">
-                            <input type="number" id="basicSalary" name="basicSalary" class="form-control dt-salary"
-                                placeholder="12000" aria-label="12000" value="00" aria-describedby="basicSalary2">
+                            <input type="number" id="basicSalary" name="priceProduct" class="form-control dt-salary"
+                                placeholder="Ingresar Precio" aria-label="12000" value="00" aria-describedby="basicSalary2">
                             <label for="basicSalary">Precio</label>
                         </div>
                     </div>
