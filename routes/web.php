@@ -6,6 +6,7 @@ use App\Http\Controllers\SubCategories;
 use App\Http\Controllers\Offers;
 use App\Http\Controllers\Products;
 use App\Http\Controllers\Prices;
+use App\Http\Controllers\Combos;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,5 +61,13 @@ Route::controller(Prices::class)->group(function ($route) {
     Route::get('/Precios', 'index')->name('Precios');
     Route::get('/Agregar_Precio', 'add_price')->name('Agregar precio');
     Route::post('/savePrice', 'new');
+    Route::get('/show-prices', 'show');
+});
+
+Route::controller(Combos::class)->group(function ($route) {
+
+    Route::get('/Combos', 'index')->name('Combos');
+    Route::get('/Agregar_Combo', 'add_combo')->name('Agregar combo');
+    Route::post('/saveCombo', 'new');
     Route::get('/show-prices', 'show');
 });

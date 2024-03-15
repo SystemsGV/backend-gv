@@ -15,10 +15,19 @@ return new class extends Migration
     {
         Schema::create('combos', function (Blueprint $table) {
             $table->id('id_combo');
+            $table->text('code_combo');
             $table->string('name_combo');
             $table->text('description_combo')->nullable();
+            $table->text('short_combo')->nullable();
             $table->string('image_combo')->nullable();
             $table->decimal('price_combo', 8, 2);
+            $table->date('combo_init_date');
+            $table->date('combo_finish_date');
+            $table->integer('isMultiPrice_combo')->nullable();
+            $table->boolean('status_combo')->default(1);
+            $table->string('seo_titleC')->nullable();
+            $table->string('seo_meta_descriptionC')->nullable();
+            $table->string('seo_keywordsC')->nullable();
             $table->timestamps();
         });
 
@@ -41,7 +50,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('combos');
         Schema::dropIfExists('combo_products');
+        Schema::dropIfExists('combos');
     }
 };

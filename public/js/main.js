@@ -442,7 +442,7 @@ document.getElementById("layout-menu") &&
                                     },
                                 },
                                 {
-                                    name: "pages",
+                                    name: "Paginas",
                                     display: "name",
                                     limit: 5,
                                     source: t(a.pages),

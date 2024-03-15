@@ -303,7 +303,6 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('vendor/libs/quill/editor.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/libs/dropzone/dropzone.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/flatpickr/flatpickr.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/tagify/tagify.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/spinkit/spinkit.css') }}">
@@ -312,7 +311,6 @@
 @section('scripts')
     <!-- Page JS -->
     <script src="{{ asset('vendor/libs/block-ui/block-ui.js') }}"></script>
-    <script src="{{ asset('vendor/libs/dropzone/dropzone.js') }}"></script>
     <script src="{{ asset('vendor/libs/jquery-repeater/jquery-repeater.js') }}"></script>
     <script src="{{ asset('vendor/libs/flatpickr/flatpickr.js') }}"></script>
     <script src="{{ asset('vendor/libs/autosize/autosize.js') }}"></script>
