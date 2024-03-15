@@ -64,7 +64,7 @@ class Categories extends Controller
             $categoryId = $request->input('categoryId');
 
             // Buscar la categoría existente en la base de datos
-            $category = Category::findOrFail($categoryId);
+                                
 
             // Obtener otros datos del formulario
             $nameCategory = $request->input('categoryTitle');
