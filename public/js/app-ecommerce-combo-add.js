@@ -392,7 +392,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                         title: data.message,
                     });
                     setTimeout(function () {
-                        window.location.href = "Productos";
+                        window.location.href = "Combos";
                     }, 3000);
                     $.unblockUI();
                 })

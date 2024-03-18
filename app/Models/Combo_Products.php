@@ -12,4 +12,14 @@ class Combo_Products extends Model
     protected $table = 'combo_products';
     protected $primaryKey = 'id_cp';
     protected $fillable = ['combo_id', 'product_id', 'quantity', 'price_cp'];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id_product');
+    }
+
+    public function combo()
+    {
+        return $this->belongsTo(Combo::class, 'combo_id', 'id_combo');
+    }
 }

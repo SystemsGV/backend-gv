@@ -23,6 +23,12 @@ class Combos extends Controller
         $data['products'] = Product::where('status_product', 1)->get();
         return view('add_combo', $data);
     }
+
+    public function show()
+    {
+        $offersData = Combo::getAllCombos();
+        return response()->json(['data' => $offersData]);
+    }
     public function new(Request $request)
     {
         $combo = new Combo();
@@ -71,5 +77,27 @@ class Combos extends Controller
 
 
         return response()->json($data);
+    }
+
+    public function updateCombo(Request $request)
+    {
+        try {
+            $id = $request->input('id');
+            $status = $request->input('status');
+
+            $offer = Combo::findOrFail($id);
+            $offer->status_combo = $status;
+            $offer->save();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => 'No se pudo encontrar la categoría.'], 404);
+        }
+    }
+
+    public function showItems(Request $request)
+    {
+        $combo = Combo::find($request->input('id'));
+        return response()->json($combo->getComboItems());
     }
 }

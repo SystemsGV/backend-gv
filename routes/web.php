@@ -67,7 +67,9 @@ Route::controller(Prices::class)->group(function ($route) {
 Route::controller(Combos::class)->group(function ($route) {
 
     Route::get('/Combos', 'index')->name('Combos');
+    Route::get('/tableCombos', 'show');
     Route::get('/Agregar_Combo', 'add_combo')->name('Agregar combo');
     Route::post('/saveCombo', 'new');
-    Route::get('/show-prices', 'show');
+    Route::post('/statusCombo', 'updateCombo');
+    Route::post('/comboItems', 'showItems');
 });
