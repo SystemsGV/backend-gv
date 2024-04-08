@@ -48,18 +48,20 @@ $(function () {
                     targets: 1,
                     responsivePriority: 1,
                     render: function (t, e, s, n) {
-                        var a = s.name,
-                            i = s.id,
+                        var a = s.name.substring(0, 30); // Limita a 30 caracteres
+                        var restOfName = s.name.length > 30 ? "..." : ""; // Añade puntos suspensivos si el nombre es más largo
+                        
+                        var i = s.id,
                             c = s.image;
                         return (
                             '<div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper me-3"><div class="avatar rounded-2 bg-label-secondary">' +
-                            ('<img src= "/storage/combos/' +
+                            ('<img src="/storage/combos/' +
                                 c +
                                 '" alt="Product-' +
                                 i +
                                 '" class="rounded-2">') +
                             '</div></div><div class="d-flex flex-column"><span class="text-nowrap text-heading fw-medium">' +
-                            a +
+                            a + restOfName + // Mostrar el nombre recortado y los puntos suspensivos si el nombre es más largo
                             "</span></div></div>"
                         );
                     },

@@ -41,6 +41,20 @@ return new class extends Migration
             $table->foreign('combo_id')->references('id_combo')->on('combos')->onDelete('cascade');
             $table->foreign('product_id')->references('id_product')->on('products')->onDelete('cascade');
         });
+
+        
+        Schema::create('prices_combos', function (Blueprint $table) {
+            $table->id('id_price_cb');
+            $table->unsignedBigInteger('combo_id');
+            $table->text('title_price_cb');
+            $table->integer('type_price_cb');
+            $table->text('day_of_week_cb')->nullable();
+            $table->text('price_by_dates_cb')->nullable();
+            $table->decimal('price_cb', 10, 2);
+            $table->enum('shift_cb', ['1', '2'])->nullable();
+            $table->timestamps();
+            $table->foreign('combo_id')->references('id_combo')->on('combos')->onDelete('cascade');
+        });
     }
 
     /**
@@ -50,6 +64,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('prices_combos');
         Schema::dropIfExists('combo_products');
         Schema::dropIfExists('combos');
     }

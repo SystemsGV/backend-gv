@@ -161,11 +161,11 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-floating form-floating-outline mb-4">
-                                    <input type="text" id="init-date" placeholder="YYYY-DD-MM" name="initDate" class="form-control">
+                                    <input type="text" id="init-date" placeholder="YYYY-MM-DD" name="initDate" class="form-control">
                                     <label for="init-date">Inicio de periodo</label>
                                 </div>
                                 <div class="form-floating form-floating-outline mb-4">
-                                    <input type="text" id="finsh-date" placeholder="YYYY-DD-MM" name="finishDate" class="form-control">
+                                    <input type="text" id="finsh-date" placeholder="YYYY-MM-DD" name="finishDate" class="form-control">
                                     <label for="finsh-date">Fin de periodo</label>
                                 </div>
                             </div>

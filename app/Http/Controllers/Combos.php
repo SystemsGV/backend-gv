@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Product;
 use App\Models\Combo;
 use App\Models\Combo_Products;
+use App\Models\Combo_Prices;
 
 class Combos extends Controller
 {
@@ -99,5 +100,46 @@ class Combos extends Controller
     {
         $combo = Combo::find($request->input('id'));
         return response()->json($combo->getComboItems());
+    }
+    public function showComboPrices()
+    {
+        $data['title'] = "Multi Precios Combos";
+        return view('prices_combos', $data);
+    }
+
+    public function tablePrices(){
+        $offersData = Combo_Prices::getAllPricesCombos();
+        return response()->json(['data' => $offersData]);
+    }
+
+
+    public function addComboPrice()
+    {
+        $data['title'] = "Agregar Precios Para Combos";
+        $data['combos'] = Combo::multiPriceAndActive()->get();
+        return view('add_price_combo', $data);
+    }
+
+    public function newPrice(Request $request)
+    {
+
+        $price = new Combo_Prices();
+        $price->combo_id = $request->input('combo');
+        $price->title_price_cb = $request->input('productTitle');
+        $price->type_price_cb = $request->input('choice_dates');
+        $price->day_of_week_cb = $request->input('selected_days');
+        $price->price_by_dates_cb = $request->input('select_dates');
+        $price->price_cb = $request->input('price');
+        if ($request->input('choice_dates') == '1') {
+            $price->shift_cb = $request->input('shift-org-dates');
+        } else {
+            $price->shift_cb = $request->input('shift-org-days');
+        }
+        $price->save();
+
+        $data['status'] = true;
+        $data['message'] = 'Precio agregado exitosamente';
+
+        return response()->json($data);
     }
 }

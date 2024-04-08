@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 })),
             p.length &&
                 p.datepicker({
-                    format: "yyyy-dd-mm",
+                    format: "yyyy-mm-dd",
                     todayHighlight: !0,
                     autoclose: !0,
                     orientation: isRtl ? "auto right" : "auto left",

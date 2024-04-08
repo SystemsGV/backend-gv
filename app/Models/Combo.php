@@ -43,4 +43,11 @@ class Combo extends Model
     {
         return $this->comboItems()->with('product')->get();
     }
+
+    public function scopeMultiPriceAndActive($query)
+    {
+        return $query->where('isMultiPrice_combo', 1)->where('status_combo', 1);
+    }
+
+    
 }

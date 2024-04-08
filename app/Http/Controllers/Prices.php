@@ -39,7 +39,6 @@ class Prices extends Controller
         $price->start_time = $request->input('dateInit');
         $price->end_time = $request->input('dateFinish');
         $price->price = $request->input('price');
-        $price->end_time = $request->input('dateFinish');
         if ($request->input('choice_dates') == '1') {
             $price->shift = $request->input('shift-org-dates');
         } else {

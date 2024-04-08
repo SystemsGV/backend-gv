@@ -12,9 +12,8 @@ $(function () {
     ).headingColor;
     var t = $(".datatables-products"),
         a = {
-            1: { title: "Scheduled", class: "bg-label-warning" },
-            2: { title: "Publish", class: "bg-label-success" },
-            3: { title: "Inactive", class: "bg-label-danger" },
+            1: { title: "Completo", class: "bg-label-success" },
+            2: { title: "Medio Dia", class: "bg-label-warning" },
         },
         i = {
             0: { title: "Household" },

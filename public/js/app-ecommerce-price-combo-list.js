@@ -28,17 +28,15 @@ $(function () {
         c = { 0: { title: "Out of Stock" }, 1: { title: "In Stock" } };
     t.length &&
         (t.DataTable({
-            ajax: assetsPath + "json/ecommerce-product-list.json",
+            ajax: "tablePriceCombos",
             columns: [
-                { data: "id" },
-                { data: "id" },
-                { data: "product_name" },
-                { data: "category" },
-                { data: "stock" },
-                { data: "sku" },
+                { data: "id" }, 
+                { data: "combo" },
+                { data: "type_price" },
+                { data: "prices_days" },
+                { data: "prices_dates" },
                 { data: "price" },
-                { data: "quantity" },
-                { data: "status" },
+                { data: "shift" },
                 { data: "" },
             ],
             columnDefs: [
@@ -54,139 +52,48 @@ $(function () {
                 },
                 {
                     targets: 1,
-                    orderable: !1,
-                    checkboxes: {
-                        selectAllRender:
-                            '<input type="checkbox" class="form-check-input">',
+                    responsivePriority: 1,
+                    render: function (t, e, s, n) {
+                        return t;
                     },
-                    render: function () {
-                        return '<input type="checkbox" class="dt-checkboxes form-check-input" >';
-                    },
-                    searchable: !1,
                 },
                 {
                     targets: 2,
-                    responsivePriority: 1,
+                    responsivePriority: 5,
                     render: function (t, e, s, n) {
-                        var a = s.product_name,
-                            i = s.id,
-                            o = s.product_brand,
-                            c = s.image;
-                        return (
-                            '<div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper me-3"><div class="avatar rounded-2 bg-label-secondary">' +
-                            (c
-                                ? '<img src="' +
-                                  assetsPath +
-                                  "img/ecommerce-images/" +
-                                  c +
-                                  '" alt="Product-' +
-                                  i +
-                                  '" class="rounded-2">'
-                                : '<span class="avatar-initial rounded-2 bg-label-' +
-                                  [
-                                      "success",
-                                      "danger",
-                                      "warning",
-                                      "info",
-                                      "dark",
-                                      "primary",
-                                      "secondary",
-                                  ][Math.floor(6 * Math.random())] +
-                                  '">' +
-                                  (c = (
-                                      ((c =
-                                          (a = s.product_brand).match(
-                                              /\b\w/g
-                                          ) || []).shift() || "") +
-                                      (c.pop() || "")
-                                  ).toUpperCase()) +
-                                  "</span>") +
-                            '</div></div><div class="d-flex flex-column"><span class="text-nowrap text-heading fw-medium">' +
-                            a +
-                            '</span><small class="text-truncate d-none d-sm-block">' +
-                            o +
-                            "</small></div></div>"
-                        );
+                        return t;
                     },
                 },
                 {
                     targets: 3,
-                    responsivePriority: 5,
-                    render: function (t, e, s, n) {
-                        s = i[s.category].title;
-                        return (
-                            "<h6 class='text-truncate d-flex align-items-center mb-0'>" +
-                            {
-                                 :
-                                    '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2"><i class="mdi mdi-home-outline"></i></span>',
-                                Office: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2"><i class="mdi mdi-briefcase-variant-outline"></i></span>',
-                                Electronics:
-                                    '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2"><i class="mdi mdi-cellphone"></i></span>',
-                                Shoes: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2"><i class="mdi mdi-shoe-sneaker"></i></span>',
-                                Accessories:
-                                    '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2"><i class="mdi mdi-watch"></i></span>',
-                                Game: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-dark me-2"><i class="mdi mdi-controller"></i></span>',
-                            }[s] +
-                            s +
-                            "</h6>"
-                        );
-                    },
-                },
-                {
-                    targets: 4,
                     orderable: !1,
                     responsivePriority: 3,
                     render: function (t, e, s, n) {
-                        s = s.stock;
-                        return (
-                            "<span class='text-truncate'>" +
-                            {
-                                Out_of_Stock:
-                                    '<label class="switch switch-primary switch-sm"><input type="checkbox" class="switch-input" id="switch"><span class="switch-toggle-slider"><span class="switch-off"></span></span></label>',
-                                In_Stock:
-                                    '<label class="switch switch-primary switch-sm"><input type="checkbox" class="switch-input" checked=""><span class="switch-toggle-slider"><span class="switch-on"></span></span></label>',
-                            }[o[s].title] +
-                            '<span class="d-none">' +
-                            o[s].title +
-                            "</span></span>"
-                        );
+                        return t;
+                    }
+                },
+                {
+                    targets: 4,
+                    render: function (t, e, s, n) {
+                        return t;
                     },
                 },
                 {
                     targets: 5,
                     render: function (t, e, s, n) {
-                        return "<span>" + s.sku + "</span>";
+                        return t;
                     },
                 },
+
                 {
                     targets: 6,
                     render: function (t, e, s, n) {
-                        return "<span>" + s.price + "</span>";
-                    },
-                },
-                {
-                    targets: 7,
-                    responsivePriority: 4,
-                    render: function (t, e, s, n) {
-                        return "<span>" + s.qty + "</span>";
-                    },
-                },
-                {
-                    targets: -2,
-                    render: function (t, e, s, n) {
-                        s = s.status;
-                        return (
-                            '<span class="badge rounded-pill ' +
-                            a[s].class +
-                            '" text-capitalized>' +
-                            a[s].title +
-                            "</span>"
-                        );
+                        return t;
                     },
                 },
                 {
                     targets: -1,
-                    title: "Actions",
+                    title: "Acciones",
                     searchable: !1,
                     orderable: !1,
                     render: function (t, e, s, n) {
@@ -390,7 +297,7 @@ $(function () {
                     className:
                         "add-new btn btn-primary ms-n1 waves-effect waves-light",
                     action: function () {
-                        window.location.href = "Agregar_Producto";
+                        window.location.href = "Agregar_Precio";
                     },
                 },
             ],
